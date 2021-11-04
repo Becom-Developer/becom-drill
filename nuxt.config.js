@@ -9,7 +9,7 @@ export default {
   head: {
     title: 'becom-drill',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
