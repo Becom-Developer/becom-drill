@@ -5,7 +5,6 @@
     <b-button size="lg" @click="nextQuestion">次の問題</b-button>
     <b-alert v-if="isThink" show>{{ guidance }}</b-alert>
     <b-alert v-else show>{{ guidance }}</b-alert>
-
     <b-alert v-if="isSuccess" show variant="danger">{{ answer }}</b-alert>
     <b-alert v-else show variant="dark">{{ answer }}</b-alert>
     <b-row v-if="isResult">
@@ -20,6 +19,11 @@
         }}</b-button></b-col
       >
     </b-row>
+    <div v-if="isTimeout">
+      <b-button size="lg" @click="startTime(20)">問題スタート</b-button>
+    </div>
+    <div v-else></div>
+    <b-alert show variant="dark">{{ count }}</b-alert>
     <ul>
       <li v-for="result in storage.result" :key="result.id">
         回答: {{ result.answerResult }}
@@ -46,10 +50,30 @@ export default {
       isResult: false,
       input: false,
       storage: [],
+      count: 0,
+      isTimeout: true,
     }
   },
   mounted() {},
   methods: {
+    startTime(sec) {
+      let secTime = 10
+      if (sec) {
+        secTime = sec
+      }
+      this.isTimeout = false
+      let count = -1
+      const countUp = () => {
+        count++
+        this.count = count
+        const timeoutID = setTimeout(countUp, 1000)
+        if (count >= secTime) {
+          clearTimeout(timeoutID)
+          this.isTimeout = true
+        }
+      }
+      countUp()
+    },
     answerCheck(total) {
       this.input = total
       if (total === this.correctAnswer.total) {
@@ -62,7 +86,6 @@ export default {
       this.isThink = false
       this.isResult = true
       this.guidance = '回答結果です'
-
       const date = new Date()
       let storage = JSON.parse(localStorage.getItem('drill'))
       if (storage === null) {
