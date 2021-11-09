@@ -108,7 +108,9 @@ export default {
       // 指定するための乱数
       const number = Math.floor(Math.random() * list.length)
       this.answerBtn = list[number]
-      this.storage = JSON.parse(localStorage.getItem('drill'))
+      if (localStorage.getItem('drill')) {
+        this.storage = JSON.parse(localStorage.getItem('drill'))
+      }
     },
   },
 }
