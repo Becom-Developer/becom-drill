@@ -19,6 +19,11 @@
         }}</b-button></b-col
       >
     </b-row>
+    <div>
+      <b-button size="lg" @click="deleteAnswerList()"
+        >回答履歴を削除する</b-button
+      >
+    </div>
     <div v-if="isTimeout">
       <b-button size="lg" @click="startTime(20)">問題スタート</b-button>
     </div>
@@ -56,6 +61,10 @@ export default {
   },
   mounted() {},
   methods: {
+    deleteAnswerList() {
+      localStorage.removeItem('drill')
+      this.storage = []
+    },
     startTime(sec) {
       let secTime = 10
       if (sec) {
