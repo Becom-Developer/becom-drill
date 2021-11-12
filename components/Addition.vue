@@ -61,6 +61,42 @@ export default {
   },
   mounted() {},
   methods: {
+    // 問題を作成する -> createQuestion
+    createQuestion() {
+      const left = Math.floor(Math.random() * 11)
+      const right = Math.floor(Math.random() * 11)
+      const total = left + right
+      return { left, right, total }
+    },
+    // 問題を出現させる -> showQuestion
+    // 問題の答えを三択で出現させる -> selectAnser
+    selectAnser() {
+      this.q1 = this.createQuestion()
+      this.q2 = this.createQuestion()
+      this.q3 = this.createQuestion()
+      this.correctAnswer = this.q1
+      const list = [
+        [this.q1, this.q2, this.q3],
+        [this.q1, this.q3, this.q2],
+        [this.q2, this.q3, this.q1],
+        [this.q2, this.q1, this.q3],
+        [this.q3, this.q1, this.q2],
+        [this.q3, this.q2, this.q1],
+      ]
+      // 指定するための乱数
+      const number = Math.floor(Math.random() * list.length)
+      this.answerBtn = list[number]
+    },
+    // 問題の答え合わせをする -> checkAnser
+    // 答え合わせの結果表示 -> showCheckAnser
+    // 答え合わせの結果によって効果音を出す -> beepCheckAnser
+    // 答え合わせの内容を記録する -> addAnserHistory
+    addAnserHistory() {},
+    // 回答履歴を表示 -> showAnserHistory
+    // 回答結果に対しての結果発表 -> announce
+    // 回答履歴を削除 -> removeAnserHistory
+    // 問題を入れ替える -> nextQuestion
+
     deleteAnswerList() {
       localStorage.removeItem('drill')
       this.storage = []
@@ -115,31 +151,12 @@ export default {
       }
       localStorage.setItem('drill', JSON.stringify(storage))
     },
-    question() {
-      const left = Math.floor(Math.random() * 11)
-      const right = Math.floor(Math.random() * 11)
-      const total = left + right
-      return { left, right, total }
-    },
     nextQuestion() {
-      this.q1 = this.question()
-      this.q2 = this.question()
-      this.q3 = this.question()
-      this.correctAnswer = this.q1
+      // 問題の答えを三択で出現させる
+      this.selectAnser()
       this.guidance = '問題を考えてみよう'
       this.isResult = false
       this.answer = '回答ボタンを押してください'
-      const list = [
-        [this.q1, this.q2, this.q3],
-        [this.q1, this.q3, this.q2],
-        [this.q2, this.q3, this.q1],
-        [this.q2, this.q1, this.q3],
-        [this.q3, this.q1, this.q2],
-        [this.q3, this.q2, this.q1],
-      ]
-      // 指定するための乱数
-      const number = Math.floor(Math.random() * list.length)
-      this.answerBtn = list[number]
       if (localStorage.getItem('drill')) {
         this.storage = JSON.parse(localStorage.getItem('drill'))
       }
