@@ -8,6 +8,7 @@
       <NuxtLink to="/addition/start">足し算</NuxtLink>
     </div>
     <b-btn @click="clickTest">test</b-btn>
+    <question />
   </b-container>
 </template>
 
