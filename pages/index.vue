@@ -7,9 +7,21 @@
     <div>
       <NuxtLink to="/addition/start">足し算</NuxtLink>
     </div>
+    <b-btn @click="clickTest">test</b-btn>
   </b-container>
 </template>
 
 <script>
-export default {}
+import { mapState, mapMutations } from 'vuex'
+export default {
+  computed: {
+    ...mapState(['counter', 'name', 'record']),
+  },
+  methods: {
+    ...mapMutations(['addName', 'addDrillID']),
+    clickTest() {
+      console.log('-----1')
+    },
+  },
+}
 </script>

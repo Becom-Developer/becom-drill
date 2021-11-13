@@ -2,15 +2,9 @@
   <div>
     <b-container class="bg-light mt-3">
       <h1>じっくりドリル</h1>
-      <h2>もんだいのかずをきめる</h2>
-      <div>
-        <p>ぜんぶで {{ numberQ }} もん</p>
-        <div v-if="isAnswering === false">
-          <input v-model="numberQ" type="text" class="form-control" />
-          <br />
-          <b-button size="lg" @click="startDrill()">ドリルスタート</b-button>
-        </div>
-      </div>
+      <my-name />
+      <question-number />
+      <b-button size="lg" @click="startDrill()">ドリルスタート</b-button>
     </b-container>
     <b-container class="bg-light mt-3">
       <div v-if="isAnswering">

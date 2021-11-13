@@ -2,15 +2,7 @@
   <div>
     <b-container class="bg-light mt-3">
       <h1>たしざんドリルのじゅんび</h1>
-      <div>
-        <p>じぶんのなまえ</p>
-        <b-alert v-if="hasMyName" show variant="info">{{ myName }}</b-alert>
-        <b-alert v-else show variant="dark">とうろくされていません</b-alert>
-
-        <input v-model="myName" type="text" class="form-control" />
-        <br />
-        <b-button size="lg" @click="createMyName()">ほぞんする</b-button>
-      </div>
+      <my-name />
       <div>
         <NuxtLink to="/">Home page</NuxtLink>
       </div>

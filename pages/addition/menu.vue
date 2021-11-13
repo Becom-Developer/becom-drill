@@ -2,11 +2,7 @@
   <div>
     <b-container class="bg-light mt-3">
       <h1>ドリルをえらぶ</h1>
-      <div>
-        <p>じぶんのなまえ</p>
-        <b-alert v-if="hasMyName" show variant="info">{{ myName }}</b-alert>
-        <b-alert v-else show variant="dark">とうろくされていません</b-alert>
-      </div>
+      <my-name />
       <div>
         <NuxtLink to="/addition/time-limit">はやおしドリル</NuxtLink>
       </div>
