@@ -2,18 +2,20 @@
   <div class="my-3">
     <h3 class="text-center">たしざん 問</h3>
     <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
-    <p v-if="isAnswering" class="text-center">正解をクリック</p>
-    <p v-else class="text-center">入力したこたえ</p>
-
-
-    <b-row v-if="isAnswering">
-      <b-col v-for="btn in answerBtn" :key="btn.id" class="text-center"
-        ><b-button size="lg" @click="checkAnser(btn.total)">{{
-          btn.total
-        }}</b-button></b-col
-      >
-    </b-row>
+    <!-- 出題中 -->
+    <div v-if="isAnswering">
+      <p class="text-center">正解をクリック</p>
+      <b-row>
+        <b-col v-for="btn in answerBtn" :key="btn.id" class="text-center"
+          ><b-button size="lg" @click="checkAnser(btn.total)">{{
+            btn.total
+          }}</b-button></b-col
+        >
+      </b-row>
+    </div>
+    <!-- 答案後 -->
     <div v-else class="text-center">
+      <p class="text-center">入力したこたえ</p>
       <b-alert show variant="success">{{ input }}</b-alert>
       <b-alert v-if="isSuccess" show variant="danger">{{ answer }}</b-alert>
       <b-alert v-else show variant="dark">{{ answer }}</b-alert>
