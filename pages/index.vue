@@ -12,22 +12,37 @@
           pill
           size="lg"
           variant="outline-secondary"
-          @click="addition('/addition/start')"
+          @click="nextPage('/addition')"
           >たしざん</b-btn
         ></b-col
       >
       <b-col lg="3" class="pb-2"
-        ><b-btn block pill size="lg" variant="outline-secondary"
+        ><b-btn
+          block
+          pill
+          size="lg"
+          variant="outline-secondary"
+          @click="nextPage('/subtraction')"
           >ひきざん</b-btn
         ></b-col
       >
       <b-col lg="3" class="pb-2"
-        ><b-btn block pill size="lg" variant="outline-secondary"
+        ><b-btn
+          block
+          pill
+          size="lg"
+          variant="outline-secondary"
+          @click="nextPage('/multiplication')"
           >かけざん</b-btn
         ></b-col
       >
       <b-col lg="3" class="pb-2"
-        ><b-btn block pill size="lg" variant="outline-secondary"
+        ><b-btn
+          block
+          pill
+          size="lg"
+          variant="outline-secondary"
+          @click="nextPage('/division')"
           >わりざん</b-btn
         ></b-col
       >
@@ -35,14 +50,10 @@
   </b-container>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
 export default {
-  computed: {
-    ...mapState(['counter', 'name', 'record']),
-  },
+  computed: {},
   methods: {
-    ...mapMutations(['addName', 'addDrillID']),
-    addition(path) {
+    nextPage(path) {
       this.$router.push(path)
     },
   },
