@@ -1,13 +1,37 @@
 <template>
-  <b-container class="bg-light mt-3">
-    <b-alert show>選択する</b-alert>
-    <div>
-      <NuxtLink to="/">Home page</NuxtLink>
-    </div>
-    <div>
-      <NuxtLink to="/addition/start">足し算</NuxtLink>
-    </div>
-    <b-btn @click="clickTest">test</b-btn>
+  <b-container class="bg-light mt-3 text-center">
+    <h1>ドリルマスター</h1>
+    <p>みんなでたのしくグリグリ計算ドリルをやってみよう</p>
+    <h2>ドリルをえらぼう</h2>
+    <p>4つのドリルがえらべるよ</p>
+    <p>やってみたいドリルをクリックしてみよう</p>
+    <b-row>
+      <b-col lg="3" class="pb-2"
+        ><b-btn
+          block
+          pill
+          size="lg"
+          variant="outline-secondary"
+          @click="addition('/addition/start')"
+          >たしざん</b-btn
+        ></b-col
+      >
+      <b-col lg="3" class="pb-2"
+        ><b-btn block pill size="lg" variant="outline-secondary"
+          >ひきざん</b-btn
+        ></b-col
+      >
+      <b-col lg="3" class="pb-2"
+        ><b-btn block pill size="lg" variant="outline-secondary"
+          >かけざん</b-btn
+        ></b-col
+      >
+      <b-col lg="3" class="pb-2"
+        ><b-btn block pill size="lg" variant="outline-secondary"
+          >わりざん</b-btn
+        ></b-col
+      >
+    </b-row>
   </b-container>
 </template>
 <script>
@@ -18,7 +42,9 @@ export default {
   },
   methods: {
     ...mapMutations(['addName', 'addDrillID']),
-    clickTest() {},
+    addition(path) {
+      this.$router.push(path)
+    },
   },
 }
 </script>
