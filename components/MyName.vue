@@ -3,18 +3,32 @@
     <h3>じぶんのなまえ</h3>
     <b-alert show variant="info">{{ name || noName }}</b-alert>
     <div v-if="isNowChanging">
-      <!-- <input v-model="inputName" type="text" class="form-control" /> -->
       <b-form-select v-model="inputName" :options="options"></b-form-select>
-      <b-button size="lg" @click="isNowChanging = false">ほぞんする</b-button>
+      <b-btn
+        v-if="isOpenDrill === false"
+        size="lg"
+        @click="isNowChanging = false"
+        >ほぞんする</b-btn
+      >
     </div>
-    <b-button v-else size="lg" @click="isNowChanging = true"
-      >へんこうする</b-button
-    >
+    <div v-else>
+      <b-btn
+        v-if="isOpenDrill === false"
+        size="lg"
+        @click="isNowChanging = true"
+        >へんこうする</b-btn
+      >
+    </div>
   </div>
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
+  props: {
+    isOpenDrill: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       isNowChanging: false,

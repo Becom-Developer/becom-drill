@@ -1,108 +1,42 @@
 <template>
-  <div>
-    <b-container class="bg-light mt-3">
+  <div class="text-center">
+    <b-container class="bg-light my-3">
       <h1>じっくりドリル</h1>
-      <my-name />
-      <question-number />
-      <b-button size="lg" @click="startDrill()">ドリルスタート</b-button>
-    </b-container>
-    <b-container class="bg-light mt-3">
-      <div v-if="isAnswering">
-        <h2>もんだい</h2>
-        <h1>
-          {{ questions.q1.left }}+{{ questions.q1.right }}={{
-            questions.q1.total
-          }}
-        </h1>
-        <b-row>
-          <b-col v-for="btn in answerBtnList" :key="btn.id" class="text-center"
-            ><b-button size="lg" @click="checkAnser(btn.total)">{{
-              btn.total
-            }}</b-button></b-col
-          >
-        </b-row>
-        <b-button size="lg" @click="stopDrill()">ドリルをやめる</b-button>
+      <div v-if="isDrill">
+        <question />
+        <b-button size="lg" @click="closeDrill()">ドリル設定にもどる</b-button>
+      </div>
+      <div v-else>
+        <p>もんだいのかずをきめて、さいごまでじっくりかんがえよう</p>
+        <my-name is-open-drill="true" />
+        <question-number />
+        <b-button size="lg" @click="openDrill()">ドリルひょうじ</b-button>
       </div>
     </b-container>
+    <div>
+      <NuxtLink to="/">さいしょにもどる</NuxtLink>
+    </div>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      isSuccess: false,
-      answerBtnList: {},
-      correctAnswer: { left: 0, right: 0, total: 0 },
-      questions: {},
-      isAnswering: false,
-      numberQ: 10,
+      isDrill: false,
     }
+  },
+  computed: {
+    ...mapState(['name']),
   },
   mounted() {},
   methods: {
-    // 答え合わせの内容を記録する -> addAnserHistory
-    addAnserHistory(total) {
-      const date = new Date()
-      const storage = JSON.parse(localStorage.getItem('drill'))
-      const data = {
-        question: `${this.correctAnswer.left}+${this.correctAnswer.right}`,
-        answer: Number(`${this.correctAnswer.total}`),
-        answerResult: total,
-        isCorrect: this.isSuccess,
-        date: date.toLocaleString('ja'),
-      }
-      if (storage.result) {
-        storage.result.push(data)
-      } else {
-        storage.result = [data]
-      }
-      localStorage.setItem('drill', JSON.stringify(storage))
+    openDrill() {
+      this.isDrill = true
     },
-    // 問題の答え合わせをする -> checkAnser
-    checkAnser(total) {
-      this.input = total
-      if (total === this.correctAnswer.total) {
-        this.isSuccess = true
-      } else {
-        this.isSuccess = false
-      }
-      // 答え合わせの内容を記録する
-      this.addAnserHistory(total)
+    closeDrill() {
+      this.isDrill = false
     },
-    // 問題を作成する -> createQuestion
-    createQuestion() {
-      const left = Math.floor(Math.random() * 11)
-      const right = Math.floor(Math.random() * 11)
-      const total = left + right
-      return { left, right, total }
-    },
-    // 問題の答えを三択で出現させる -> selectAnser
-    selectAnser() {
-      const q1 = this.createQuestion()
-      const q2 = this.createQuestion()
-      const q3 = this.createQuestion()
-      this.questions = { q1, q2, q3 }
-      this.correctAnswer = q1
-      const list = [
-        [q1, q2, q3],
-        [q1, q3, q2],
-        [q2, q3, q1],
-        [q2, q1, q3],
-        [q3, q1, q2],
-        [q3, q2, q1],
-      ]
-      // 指定するための乱数
-      const number = Math.floor(Math.random() * list.length)
-      this.answerBtnList = list[number]
-    },
-    startDrill() {
-      this.isAnswering = true
-      this.selectAnser()
-    },
-    stopDrill() {
-      this.isAnswering = false
-    },
-    createNumberQ() {},
   },
 }
 // 問題を解答する画面(問題数を制限) /addition/number-limit.vue

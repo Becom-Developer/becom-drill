@@ -1,14 +1,14 @@
 <template>
   <div class="my-3">
-    <h3 class="text-center">たしざん 問</h3>
+    <h3 class="text-center">たしざん {{ record.recordID }} 問</h3>
     <!-- ドリル開始まえ isBeforeDrill -->
     <div v-if="isBeforeDrill" class="text-center">
-      <b-button size="lg" @click="startDrill">ドリルをはじめる</b-button>
+      <b-button size="lg" @click="startDrill">スタート</b-button>
     </div>
     <!-- 出題中 isAnswering -->
     <div v-if="isAnswering" class="text-center">
       <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
-      <p class="text-center">正解をクリック</p>
+      <p class="text-center my-3">正解をクリック</p>
       <b-row class="my-3">
         <b-col v-for="btn in answerBtn" :key="btn.id" class="text-center"
           ><b-button size="lg" @click="checkAnser(btn.total)">{{
@@ -16,22 +16,26 @@
           }}</b-button></b-col
         >
       </b-row>
-      <b-button size="lg" @click="stopDrill">ドリルをやめる</b-button>
+      <b-button size="lg" @click="stopDrill">とちゅうでやめる</b-button>
     </div>
     <!-- 答案後 isAfterAnswering -->
     <div v-if="isAfterAnswering" class="text-center">
       <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
-      <p>入力したこたえ</p>
+      <p class="my-3">入力したこたえ</p>
+      <div v-if="isAfterDrill === false" class="my-3">
+        <b-button size="lg" @click="nextQuestion">次の問題</b-button>
+      </div>
       <b-alert show variant="success">{{ input }}</b-alert>
       <b-alert v-if="isSuccess" show variant="danger">{{ answer }}</b-alert>
       <b-alert v-else show variant="dark">{{ answer }}</b-alert>
-      <b-button size="lg" @click="nextQuestion">次の問題</b-button>
-      <b-button size="lg" @click="stopDrill">ドリルをやめる</b-button>
-    </div>
-    <!-- ドリル終了後 isAfterDrill -->
-    <div v-if="isAfterDrill" class="text-center">
-      isAfterDrill
-      <p>こんかいのせいせき</p>
+      <!-- ドリル終了後 isAfterDrill -->
+      <div v-if="isAfterDrill === false">
+        <b-button size="lg" @click="stopDrill">とちゅうでやめる</b-button>
+      </div>
+      <div v-if="isAfterDrill" class="text-center">
+        ドリルがおわりました。
+        <p>こんかいのせいせき</p>
+      </div>
     </div>
   </div>
 </template>
@@ -55,12 +59,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['name', 'record', 'history']),
+    ...mapState(['name', 'numberQ', 'record', 'history']),
   },
   mounted() {},
   methods: {
     ...mapMutations([
       'addName',
+      'addRecordID',
       'addQuestion',
       'addAnswer',
       'addAnswerResult',
@@ -71,6 +76,8 @@ export default {
     ]),
     // ドリルを開始 -> startDrill
     startDrill() {
+      // 問題の数を初期化
+      this.addRecordID(0)
       this.nextQuestion()
       this.isBeforeDrill = false // ドリル開始まえ
       this.isAnswering = true // 出題中
@@ -125,6 +132,16 @@ export default {
       }
       // 答え合わせの内容を記録する
       this.addAnserHistory(total)
+      // ドリルの問題数が設定値にくると終了
+      if (this.record.recordID >= this.numberQ) {
+        this.isBeforeDrill = false // ドリル開始まえ
+        this.isAnswering = false // 出題中
+        this.isAfterAnswering = true // 答案後
+        this.isAfterDrill = true // ドリル終了後
+        // 問題の数を初期化
+        this.addRecordID(0)
+        return
+      }
       this.isBeforeDrill = false // ドリル開始まえ
       this.isAnswering = false // 出題中
       this.isAfterAnswering = true // 答案後
@@ -132,28 +149,7 @@ export default {
     },
     // 答え合わせの内容を記録する -> addAnserHistory
     addAnserHistory(total, name) {
-      // let storageName = 'nobunaga'
-      // if (name) {
-      //   storageName = name
-      // }
       const date = new Date()
-      // let storage = JSON.parse(localStorage.getItem('drill'))
-      // if (storage === null) {
-      //   storage = { name: storageName }
-      // }
-      // const data = {
-      //   question: `${this.correctAnswer.left}+${this.correctAnswer.right}`,
-      //   answer: Number(`${this.correctAnswer.total}`),
-      //   answerResult: total,
-      //   isCorrect: this.isSuccess,
-      //   date: date.toLocaleString('ja'),
-      // }
-      // if (storage.result) {
-      //   storage.result.push(data)
-      // } else {
-      //   storage.result = [data]
-      // }
-      // localStorage.setItem('drill', JSON.stringify(storage))
       // vuex への保存
       // 問題の解答を保存
       this.addQuestion(`${this.correctAnswer.left}+${this.correctAnswer.right}`)
@@ -161,17 +157,17 @@ export default {
       this.addAnswerResult(total)
       this.addIsCorrect(this.isSuccess)
       this.addEndTime(date.toLocaleString('ja'))
-      const record = {...this.record}
+      const record = { ...this.record }
       // 解答履歴へ保存
       this.pushHistory(record)
     },
     // 問題を入れ替える -> nextQuestion
     nextQuestion() {
+      // 問題の数を設定
+      const count = this.record.recordID
+      this.addRecordID(count + 1)
       // 問題の答えを三択で出現させる
       this.selectAnser()
-      if (localStorage.getItem('drill')) {
-        this.storage = JSON.parse(localStorage.getItem('drill'))
-      }
       this.isBeforeDrill = false // ドリル開始まえ
       this.isAnswering = true // 出題中
       this.isAfterAnswering = false // 答案後
