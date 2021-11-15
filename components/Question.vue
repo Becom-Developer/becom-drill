@@ -3,17 +3,37 @@
     <h3 class="text-center">たしざん {{ record.recordID }} 問</h3>
     <!-- ドリル開始まえ isBeforeDrill -->
     <div v-if="isBeforeDrill" class="text-center">
-      <b-button size="lg" @click="startDrill">スタート</b-button>
+      <b-row>
+        <b-col lg="12" class="my-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-danger"
+            @click="startDrill"
+            >スタート</b-btn
+          ></b-col
+        >
+      </b-row>
     </div>
     <!-- 出題中 isAnswering -->
     <div v-if="isAnswering" class="text-center">
       <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
       <p class="text-center my-3">正解をクリック</p>
       <b-row class="my-3">
-        <b-col v-for="btn in answerBtn" :key="btn.id" class="text-center"
-          ><b-button size="lg" @click="checkAnser(btn.total)">{{
-            btn.total
-          }}</b-button></b-col
+        <b-col
+          v-for="btn in answerBtn"
+          :key="btn.id"
+          class="my-2 text-center"
+          col="4"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-danger"
+            @click="checkAnser(btn.total)"
+            >{{ btn.total }}</b-btn
+          ></b-col
         >
       </b-row>
       <b-button size="lg" @click="stopDrill">とちゅうでやめる</b-button>
@@ -23,7 +43,14 @@
       <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
       <p class="my-3">入力したこたえ</p>
       <div v-if="isAfterDrill === false" class="my-3">
-        <b-button size="lg" @click="nextQuestion">次の問題</b-button>
+        <b-btn
+          block
+          pill
+          size="lg"
+          variant="outline-danger"
+          @click="nextQuestion"
+          >次の問題</b-btn
+        >
       </div>
       <b-alert show variant="success">{{ input }}</b-alert>
       <b-alert v-if="isSuccess" show variant="danger">{{ answer }}</b-alert>

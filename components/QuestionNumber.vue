@@ -1,16 +1,40 @@
 <template>
   <div class="my-3">
     <h3>もんだいのかずをきめる</h3>
-    <b-alert show variant="info"
-      >ぜんぶで {{ numberQ || noNumberQ }} もん</b-alert
-    >
-    <div v-if="isNowChanging">
-      <b-form-select v-model="inputValue" :options="options"></b-form-select>
-      <b-button size="lg" @click="isNowChanging = false">ほぞんする</b-button>
-    </div>
-    <b-button v-else size="lg" @click="isNowChanging = true"
-      >へんこうする</b-button
-    >
+    <b-row>
+      <b-col cols="8" class="pr-1">
+        <b-alert show variant="info"
+          >ぜんぶで {{ numberQ || noNumberQ }} もん</b-alert
+        >
+      </b-col>
+      <b-col cols="4" class="pl-1">
+        <div v-if="isNowChanging">
+          <b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-success"
+            @click="isNowChanging = false"
+            >ほぞん</b-btn
+          >
+        </div>
+        <div v-else>
+          <b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="isNowChanging = true"
+            >かず</b-btn
+          >
+        </div>
+      </b-col>
+    </b-row>
+    <b-row v-if="isNowChanging">
+      <b-col cols="12" class="pb-2">
+        <b-form-select v-model="inputValue" :options="options"></b-form-select>
+      </b-col>
+    </b-row>
   </div>
 </template>
 <script>

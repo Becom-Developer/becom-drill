@@ -4,18 +4,63 @@
       <h1>じっくりドリル</h1>
       <div v-if="isDrill">
         <question />
-        <b-button size="lg" @click="closeDrill()">ドリル設定にもどる</b-button>
+        <b-row>
+          <b-col lg="12" class="my-2"
+            ><b-btn
+              block
+              pill
+              size="lg"
+              variant="outline-success"
+              @click="closeDrill()"
+              >ドリル設定にもどる</b-btn
+            ></b-col
+          >
+        </b-row>
       </div>
       <div v-else>
         <p>もんだいのかずをきめて、さいごまでじっくりかんがえよう</p>
         <my-name is-open-drill />
         <question-number />
-        <b-button size="lg" @click="openDrill()">ドリルひょうじ</b-button>
+        <b-row>
+          <b-col lg="12" class="my-2"
+            ><b-btn
+              block
+              pill
+              size="lg"
+              variant="outline-danger"
+              @click="openDrill()"
+              >ドリルひょうじ</b-btn
+            ></b-col
+          >
+        </b-row>
       </div>
     </b-container>
-    <div>
-      <NuxtLink to="/">さいしょにもどる</NuxtLink>
-    </div>
+    <b-container class="bg-light my-3 p-3">
+      <b-row>
+        <b-col lg="12" class="pb-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="$router.push('/addition')"
+            >たしざん</b-btn
+          ></b-col
+        >
+      </b-row>
+      <b-row>
+        <b-col lg="12" class="pb-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-success"
+            @click="$router.push('/')"
+            >さいしょにもどる</b-btn
+          ></b-col
+        >
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>

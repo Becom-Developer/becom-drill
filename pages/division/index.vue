@@ -10,15 +10,42 @@
     <b-container class="bg-light mt-3">
       <anser-history />
     </b-container>
-    <div>
-      <NuxtLink to="/addition/time-limit">はやおしドリル</NuxtLink>
-    </div>
-    <div>
-      <NuxtLink to="/addition/number-limit">じっくりドリル</NuxtLink>
-    </div>
-    <div>
-      <NuxtLink to="/">さいしょにもどる</NuxtLink>
-    </div>
+    <b-container class="bg-light my-3 p-3">
+      <b-row>
+        <b-col lg="6" class="pb-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="$router.push('/division/time-limit')"
+            >はやおしドリル</b-btn
+          ></b-col
+        >
+        <b-col lg="6" class="pb-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="$router.push('/division/number-limit')"
+            >じっくりドリル</b-btn
+          ></b-col
+        >
+      </b-row>
+      <b-row>
+        <b-col lg="12" class="pb-2"
+          ><b-btn
+            block
+            pill
+            size="lg"
+            variant="outline-success"
+            @click="$router.push('/')"
+            >さいしょにもどる</b-btn
+          ></b-col
+        >
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>

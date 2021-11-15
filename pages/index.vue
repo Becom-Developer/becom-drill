@@ -12,7 +12,7 @@
           pill
           size="lg"
           variant="outline-secondary"
-          @click="nextPage('/addition')"
+          @click="$router.push('/addition')"
           >たしざん</b-btn
         ></b-col
       >
@@ -22,7 +22,7 @@
           pill
           size="lg"
           variant="outline-secondary"
-          @click="nextPage('/subtraction')"
+          @click="$router.push('/subtraction')"
           >ひきざん</b-btn
         ></b-col
       >
@@ -32,7 +32,7 @@
           pill
           size="lg"
           variant="outline-secondary"
-          @click="nextPage('/multiplication')"
+          @click="$router.push('/multiplication')"
           >かけざん</b-btn
         ></b-col
       >
@@ -42,7 +42,7 @@
           pill
           size="lg"
           variant="outline-secondary"
-          @click="nextPage('/division')"
+          @click="$router.push('/division')"
           >わりざん</b-btn
         ></b-col
       >
@@ -52,10 +52,6 @@
 <script>
 export default {
   computed: {},
-  methods: {
-    nextPage(path) {
-      this.$router.push(path)
-    },
-  },
+  methods: {},
 }
 </script>
