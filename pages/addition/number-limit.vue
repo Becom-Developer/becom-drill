@@ -8,7 +8,7 @@
       </div>
       <div v-else>
         <p>もんだいのかずをきめて、さいごまでじっくりかんがえよう</p>
-        <my-name is-open-drill="true" />
+        <my-name is-open-drill />
         <question-number />
         <b-button size="lg" @click="openDrill()">ドリルひょうじ</b-button>
       </div>

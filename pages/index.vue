@@ -8,11 +8,8 @@
       <NuxtLink to="/addition/start">足し算</NuxtLink>
     </div>
     <b-btn @click="clickTest">test</b-btn>
-    <question />
-    <anser-history />
   </b-container>
 </template>
-
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {

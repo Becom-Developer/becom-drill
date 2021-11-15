@@ -1,5 +1,4 @@
 export const state = () => ({
-  counter: 0,
   name: 'とうろくされていません',
   numberQ: 10,
   record: {
@@ -20,6 +19,13 @@ export const state = () => ({
   },
   history: [],
 })
+
+export const getters = {
+  countHistory(state) {
+    return state.history.length
+  },
+}
+
 export const mutations = {
   addName(state, text) {
     state.name = text
