@@ -51,4 +51,10 @@ export const mutations = {
   addEndTime(state, text) {
     state.record.endTime = text
   },
+  pushHistory(state, data) {
+    state.history.push(data)
+  },
+  removeHistory(state) {
+    state.history = []
+  },
 }

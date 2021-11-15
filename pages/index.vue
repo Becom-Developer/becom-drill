@@ -9,6 +9,7 @@
     </div>
     <b-btn @click="clickTest">test</b-btn>
     <question />
+    <anser-history />
   </b-container>
 </template>
 
@@ -20,9 +21,7 @@ export default {
   },
   methods: {
     ...mapMutations(['addName', 'addDrillID']),
-    clickTest() {
-      console.log('-----1')
-    },
+    clickTest() {},
   },
 }
 </script>

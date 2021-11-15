@@ -36,6 +36,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -53,8 +54,21 @@ export default {
       input: '',
     }
   },
+  computed: {
+    ...mapState(['name', 'record', 'history']),
+  },
   mounted() {},
   methods: {
+    ...mapMutations([
+      'addName',
+      'addQuestion',
+      'addAnswer',
+      'addAnswerResult',
+      'addIsCorrect',
+      'addStartTime',
+      'addEndTime',
+      'pushHistory',
+    ]),
     // ドリルを開始 -> startDrill
     startDrill() {
       this.nextQuestion()
@@ -82,7 +96,11 @@ export default {
       this.q1 = this.createQuestion()
       this.q2 = this.createQuestion()
       this.q3 = this.createQuestion()
+      // 出題される問題
       this.correctAnswer = this.q1
+      // 問題の開始
+      const date = new Date()
+      this.addStartTime(date.toLocaleString('ja'))
       const list = [
         [this.q1, this.q2, this.q3],
         [this.q1, this.q3, this.q2],
@@ -114,28 +132,38 @@ export default {
     },
     // 答え合わせの内容を記録する -> addAnserHistory
     addAnserHistory(total, name) {
-      let storageName = 'nobunaga'
-      if (name) {
-        storageName = name
-      }
+      // let storageName = 'nobunaga'
+      // if (name) {
+      //   storageName = name
+      // }
       const date = new Date()
-      let storage = JSON.parse(localStorage.getItem('drill'))
-      if (storage === null) {
-        storage = { name: storageName }
-      }
-      const data = {
-        question: `${this.correctAnswer.left}+${this.correctAnswer.right}`,
-        answer: Number(`${this.correctAnswer.total}`),
-        answerResult: total,
-        isCorrect: this.isSuccess,
-        date: date.toLocaleString('ja'),
-      }
-      if (storage.result) {
-        storage.result.push(data)
-      } else {
-        storage.result = [data]
-      }
-      localStorage.setItem('drill', JSON.stringify(storage))
+      // let storage = JSON.parse(localStorage.getItem('drill'))
+      // if (storage === null) {
+      //   storage = { name: storageName }
+      // }
+      // const data = {
+      //   question: `${this.correctAnswer.left}+${this.correctAnswer.right}`,
+      //   answer: Number(`${this.correctAnswer.total}`),
+      //   answerResult: total,
+      //   isCorrect: this.isSuccess,
+      //   date: date.toLocaleString('ja'),
+      // }
+      // if (storage.result) {
+      //   storage.result.push(data)
+      // } else {
+      //   storage.result = [data]
+      // }
+      // localStorage.setItem('drill', JSON.stringify(storage))
+      // vuex への保存
+      // 問題の解答を保存
+      this.addQuestion(`${this.correctAnswer.left}+${this.correctAnswer.right}`)
+      this.addAnswer(Number(`${this.correctAnswer.total}`))
+      this.addAnswerResult(total)
+      this.addIsCorrect(this.isSuccess)
+      this.addEndTime(date.toLocaleString('ja'))
+      const record = {...this.record}
+      // 解答履歴へ保存
+      this.pushHistory(record)
     },
     // 問題を入れ替える -> nextQuestion
     nextQuestion() {
