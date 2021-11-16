@@ -17,7 +17,7 @@
               pill
               size="lg"
               variant="outline-success"
-              @click="isNowChanging = false"
+              @click="endName"
               >ほぞん</b-btn
             >
           </div>
@@ -27,7 +27,7 @@
               pill
               size="lg"
               variant="outline-secondary"
-              @click="isNowChanging = true"
+              @click="startName"
               >名前</b-btn
             >
           </div>
@@ -35,7 +35,38 @@
       </b-row>
       <b-row v-if="isNowChanging">
         <b-col cols="12" class="pb-2">
-          <b-form-select v-model="inputName" :options="options"></b-form-select>
+          <b-form-input
+            v-if="isInputOrigin"
+            v-model="inputName"
+            placeholder="なまえ"
+          ></b-form-input>
+          <b-form-select
+            v-else
+            v-model="inputName"
+            :options="options"
+          ></b-form-select>
+        </b-col>
+      </b-row>
+      <b-row v-if="isNowChanging">
+        <b-col cols="12" class="pb-2">
+          <b-btn
+            v-if="isInputOrigin"
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="startSelectName"
+            >なまえをえらぶ</b-btn
+          >
+          <b-btn
+            v-else
+            block
+            pill
+            size="lg"
+            variant="outline-secondary"
+            @click="endSelectName"
+            >ほかのなまえ</b-btn
+          >
         </b-col>
       </b-row>
     </div>
@@ -51,6 +82,7 @@ export default {
   },
   data() {
     return {
+      isInputOrigin: false,
       isNowChanging: false,
       noName: 'とうろくされていません',
       options: [
@@ -75,6 +107,20 @@ export default {
     },
   },
   mounted() {},
-  methods: { ...mapMutations(['addName', 'addDrillID']) },
+  methods: {
+    ...mapMutations(['addName', 'addDrillID']),
+    startName() {
+      this.isNowChanging = true
+    },
+    endName() {
+      this.isNowChanging = false
+    },
+    startSelectName() {
+      this.isInputOrigin = false
+    },
+    endSelectName() {
+      this.isInputOrigin = true
+    },
+  },
 }
 </script>

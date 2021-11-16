@@ -18,13 +18,15 @@
     </div>
     <!-- 出題中 isAnswering -->
     <div v-if="isAnswering" class="text-center">
-      <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
+      <b-alert class="h1" show variant="success"
+        >{{ q1.left }}+{{ q1.right }}=□</b-alert
+      >
       <p class="text-center my-3">正解をクリック</p>
       <b-row class="my-3">
         <b-col
           v-for="btn in answerBtn"
           :key="btn.id"
-          class="my-2 text-center"
+          class="text-center"
           col="4"
           ><b-btn
             block
@@ -40,8 +42,13 @@
     </div>
     <!-- 答案後 isAfterAnswering -->
     <div v-if="isAfterAnswering" class="text-center">
-      <h1 class="text-center">{{ q1.left }}+{{ q1.right }}=□</h1>
-      <p class="my-3">入力したこたえ</p>
+      <b-alert v-if="isSuccess" class="h1" show variant="danger"
+        >{{ q1.left }}+{{ q1.right }}={{ input }}</b-alert
+      >
+      <b-alert v-else class="h1" show variant="dark"
+        >{{ q1.left }}+{{ q1.right }}={{ input }}</b-alert
+      >
+      <p class="my-3">入力したこたえ->「{{ input }}」{{ answer }}</p>
       <div v-if="isAfterDrill === false" class="my-3">
         <b-btn
           block
@@ -52,9 +59,6 @@
           >次の問題</b-btn
         >
       </div>
-      <b-alert show variant="success">{{ input }}</b-alert>
-      <b-alert v-if="isSuccess" show variant="danger">{{ answer }}</b-alert>
-      <b-alert v-else show variant="dark">{{ answer }}</b-alert>
       <!-- ドリル終了後 isAfterDrill -->
       <div v-if="isAfterDrill === false">
         <b-button size="lg" @click="stopDrill">とちゅうでやめる</b-button>
@@ -151,10 +155,10 @@ export default {
     checkAnser(total) {
       this.input = total
       if (total === this.correctAnswer.total) {
-        this.answer = '正解です'
+        this.answer = 'せいかい'
         this.isSuccess = true
       } else {
-        this.answer = '不正解です'
+        this.answer = 'まちがい'
         this.isSuccess = false
       }
       // 答え合わせの内容を記録する
