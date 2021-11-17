@@ -27,7 +27,7 @@
           v-for="btn in answerBtn"
           :key="btn.id"
           class="text-center"
-          col="4"
+          cols="4"
           ><b-btn
             block
             pill
@@ -71,10 +71,11 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      drillMode: 'sample',
       isBeforeDrill: true,
       isAnswering: false,
       isAfterAnswering: false,
@@ -90,12 +91,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['name', 'numberQ', 'record', 'history']),
+    ...mapState(['name', 'numberQ', 'record', 'drill', 'history']),
+    ...mapGetters(['countDrillHistory']),
   },
   mounted() {},
   methods: {
     ...mapMutations([
       'addName',
+      'addDrillID',
       'addRecordID',
       'addQuestion',
       'addAnswer',
@@ -104,9 +107,28 @@ export default {
       'addStartTime',
       'addEndTime',
       'pushHistory',
+      'pushDrillHistory',
+      'addDrillType',
+      'addDrillStartTime',
+      'addDrillEndTime',
     ]),
+    // ドリル初期設定
+    initDrill() {
+      // 履歴確認
+      let id = 1
+      if (this.countDrillHistory) {
+        id = this.countDrillHistory + 1
+      }
+      this.addDrillID(id)
+      this.addDrillType(this.drillMode)
+      // ドリルの開始
+      const date = new Date()
+      this.addDrillStartTime(date.toLocaleString('ja'))
+    },
     // ドリルを開始 -> startDrill
     startDrill() {
+      // ドリルの記録初期設定
+      this.initDrill()
       // 問題の数を初期化
       this.addRecordID(0)
       this.nextQuestion()
@@ -171,6 +193,11 @@ export default {
         this.isAfterDrill = true // ドリル終了後
         // 問題の数を初期化
         this.addRecordID(0)
+        // ドリル履歴
+        const date = new Date()
+        this.addDrillEndTime(date.toLocaleString('ja'))
+        const drill = { ...this.drill }
+        this.pushDrillHistory(drill)
         return
       }
       this.isBeforeDrill = false // ドリル開始まえ
