@@ -66,6 +66,7 @@
       <div v-if="isAfterDrill" class="text-center">
         ドリルがおわりました。
         <p>こんかいのせいせき</p>
+        <anser-history />
       </div>
     </div>
   </div>

@@ -15,25 +15,39 @@
           <div
             v-for="card in reportCard"
             :key="card.id"
-            class="card-text text-left"
+            class="card-text text-center"
           >
-            ドリルID: {{ card.drill.id }}
-            <ul>
-              <li
-                v-for="record in card.records"
-                :key="record.id"
-                class="card-text text-left"
-              >
-                第{{ record.recordID }}問: {{ record.question }} =
-                {{ record.answerResult }}
-                <span v-if="record.isCorrect" class="">
-                  <b-badge variant="danger">正解</b-badge>
-                </span>
-                <span v-else>
-                  <b-badge variant="secondary">不正解</b-badge>
-                </span>
-              </li>
-            </ul>
+            <b-btn
+              v-b-toggle="'collapse-' + card.drill.id + '-inner'"
+              size="sm"
+              class="my-1"
+              blocks
+              pill
+              >ドリルID: {{ card.drill.id }}</b-btn
+            >
+            <b-collapse
+              :id="'collapse-' + card.drill.id + '-inner'"
+              class="my-1"
+            >
+              <b-card>
+                <ul>
+                  <li
+                    v-for="record in card.records"
+                    :key="record.id"
+                    class="card-text text-left"
+                  >
+                    第{{ record.recordID }}問: {{ record.question }} =
+                    {{ record.answerResult }}
+                    <span v-if="record.isCorrect" class="">
+                      <b-badge variant="danger">正解</b-badge>
+                    </span>
+                    <span v-else>
+                      <b-badge variant="secondary">不正解</b-badge>
+                    </span>
+                  </li>
+                </ul>
+              </b-card>
+            </b-collapse>
           </div>
           <b-btn
             variant="outline-success"
@@ -56,7 +70,7 @@ export default {
   },
   computed: {
     ...mapState(['history', 'drill']),
-    ...mapGetters(['countHistory', 'reportCard']),
+    ...mapGetters(['countHistory', 'reportCard', 'reportCardLast']),
   },
   mounted() {},
   methods: {

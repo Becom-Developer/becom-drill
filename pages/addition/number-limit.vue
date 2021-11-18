@@ -33,6 +33,7 @@
             ></b-col
           >
         </b-row>
+        <anser-history />
       </div>
     </b-container>
     <b-container class="bg-light my-3 p-3">

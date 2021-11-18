@@ -34,11 +34,16 @@ export const getters = {
       const records = []
       for (const recordRow of state.history) {
         if (recordRow.drillID === drillRow.id) {
-          records.push(recordRow)
+          records.unshift(recordRow)
         }
       }
-      card.push({ drill, records })
+      card.unshift({ drill, records })
     }
+    return card
+  },
+  reportCardLast(state, getters) {
+    const card = []
+    card.push(getters.reportCard[0])
     return card
   },
 }
