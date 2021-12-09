@@ -2,9 +2,76 @@
 
 計算ドリルで楽しく遊ぶ
 
+## Work
+
+becom-drill での開発作業の手順
+
+github でイシューを作成
+
+イシューのナンバーを使いプルリクエストを作成
+
+```zsh
+# (例: イシューのタイトルが 「認証機能 #5」 の場合)
+git fetch origin
+git checkout -b dev#5 origin/main
+git commit -m 'pullreq commit' --allow-empty
+git push origin dev#5
+```
+
+作業終了後 github へ反映
+
+```zsh
+# (例: ブランチが dev#5 の場合)
+git add .
+git commit -m 'update'
+git push origin dev#5
+```
+
+github のプルリク機能側で main ブランチにマージ
+
+不要になったローカルのブランチは削除
+
+```zsh
+# (例: ブランチが dev#5 の場合)
+git fetch
+git checkout main
+git branch -d dev#5
+```
+
+公開環境へ反映する場合
+
+ローカル環境で dist 内に static なファイルを生成
+
+```zsh
+git fetch && git checkout main && git pull
+git checkout dist
+git merge -m 'main merge' origin/main
+yarn generate
+git push origin dist
+```
+
+公開環境へログイン
+
+```zsh
+ssh becom@becom.sakura.ne.jp
+```
+
+公開環境のさくらレンタルサーバーにて
+
+```csh
+cd ~/www/becom-drill
+git fetch && git checkout dist && git pull origin dist
+```
+
+アプリケーション起動方法
+
+```zsh
+yarn dev
+```
+
 ## Setup
 
-開発環境を Mac で行うことにした
+開発環境は Mac もくは Linux(Ubuntu)
 
 ### Middleware
 
