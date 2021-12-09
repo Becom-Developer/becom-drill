@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'becom-drill',
+    title: 'ドリルマスター',
     htmlAttrs: {
       lang: 'ja',
     },

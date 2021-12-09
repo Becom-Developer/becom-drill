@@ -12,7 +12,7 @@
     </b-container>
     <b-container class="bg-light my-3 p-3">
       <b-row>
-        <b-col lg="6" class="pb-2"
+        <!-- <b-col lg="6" class="pb-2"
           ><b-btn
             block
             pill
@@ -21,7 +21,7 @@
             @click="$router.push('/addition/time-limit')"
             >はやおしドリル</b-btn
           ></b-col
-        >
+        > -->
         <b-col lg="6" class="pb-2"
           ><b-btn
             block
