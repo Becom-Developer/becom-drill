@@ -6,13 +6,13 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item @click="$router.push('/addition')">たしざん</b-nav-item>
-          <b-nav-item @click="$router.push('/subtraction')"
+          <!-- <b-nav-item @click="$router.push('/subtraction')"
             >ひきざん</b-nav-item
-          >
-          <b-nav-item @click="$router.push('/multiplication')"
+          > -->
+          <!-- <b-nav-item @click="$router.push('/multiplication')"
             >かけざん</b-nav-item
-          >
-          <b-nav-item @click="$router.push('/division')">わりざん</b-nav-item>
+          > -->
+          <!-- <b-nav-item @click="$router.push('/division')">わりざん</b-nav-item> -->
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto"> </b-navbar-nav>
