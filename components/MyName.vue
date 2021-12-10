@@ -1,12 +1,24 @@
 <template>
   <div>
+    <!-- じっくりドリル画面からの呼び出し -->
     <div v-if="isOpenDrill">
-      <h3>じぶんのなまえ</h3>
+      <h3>なまえ</h3>
       <b-alert show variant="info">{{ name || noName }}</b-alert>
     </div>
+    <!-- 通常の呼び出し -->
     <div v-else>
-      <h3>じぶんのなまえ</h3>
+      <h3>なまえ</h3>
       <b-row>
+        <b-col cols="12" class="px-2"
+          ><b-alert show variant="info">{{ name || noName }}</b-alert></b-col
+        >
+      </b-row>
+      <b-row>
+        <b-col cols="12" class="px-2">
+          <b-form-select v-model="inputName" :options="options"></b-form-select>
+        </b-col>
+      </b-row>
+      <!-- <b-row>
         <b-col cols="8" class="pr-1"
           ><b-alert show variant="info">{{ name || noName }}</b-alert></b-col
         >
@@ -28,11 +40,11 @@
               size="lg"
               variant="outline-secondary"
               @click="startName"
-              >名前</b-btn
+              >えらぶ</b-btn
             >
           </div>
-        </b-col>
-      </b-row>
+        </b-col> -->
+      <!-- </b-row> -->
       <b-row v-if="isNowChanging">
         <b-col cols="12" class="pb-2">
           <b-form-input
@@ -49,7 +61,7 @@
       </b-row>
       <b-row v-if="isNowChanging">
         <b-col cols="12" class="pb-2">
-          <b-btn
+          <!-- <b-btn
             v-if="isInputOrigin"
             block
             pill
@@ -66,7 +78,7 @@
             variant="outline-secondary"
             @click="endSelectName"
             >ほかのなまえ</b-btn
-          >
+          > -->
         </b-col>
       </b-row>
     </div>

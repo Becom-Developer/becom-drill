@@ -33,8 +33,7 @@ github のプルリク機能側で main ブランチにマージ
 
 ```zsh
 # (例: ブランチが dev#5 の場合)
-git fetch
-git checkout main
+git fetch && git checkout main && git pull
 git branch -d dev#5
 ```
 
@@ -47,6 +46,8 @@ git fetch && git checkout main && git pull
 git checkout dist
 git merge -m 'main merge' origin/main
 yarn generate
+git add .
+git commit -m 'generate'
 git push origin dist
 ```
 
