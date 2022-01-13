@@ -43,7 +43,7 @@ git branch -d dev#5
 
 ```zsh
 git fetch && git checkout main && git pull
-yarn generate
+npm run generate
 ```
 
 公開環境へ `scp` コマンドで送信

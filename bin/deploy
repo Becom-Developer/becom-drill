@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+npm run generate && \
+scp -r ~/github/becom-drill/dist becom@becom.sakura.ne.jp:~/www/becom-drill
