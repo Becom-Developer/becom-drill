@@ -22,7 +22,7 @@
             >はやおしドリル</b-btn
           ></b-col
         > -->
-        <b-col lg="6" class="pb-2"
+        <b-col class="pb-2"
           ><b-btn
             block
             pill
@@ -34,7 +34,7 @@
         >
       </b-row>
       <b-row>
-        <b-col lg="12" class="pb-2"
+        <b-col class="pb-2"
           ><b-btn
             block
             pill

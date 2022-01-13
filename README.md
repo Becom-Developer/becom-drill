@@ -67,7 +67,7 @@ git fetch && git checkout dist && git pull origin dist
 アプリケーション起動方法
 
 ```zsh
-yarn dev
+npm run dev
 ```
 
 ## Setup
@@ -80,40 +80,6 @@ yarn dev
 
 - node.js - <https://nodejs.org/ja/>
   - 安定版(LTS)の最新のものを使うようにする
-- nodebrew - <https://github.com/hokaccha/nodebrew>
-  - 上記の資料を参考に nodebrew を使える状態にしておく
-
-下記は nodebrew インストール後の Mac での具体的な手順
-
-nodebrew 自体を最新にしておく
-
-```zsh
-nodebrew selfupdate
-```
-
-安定版LTSの最新のものをインストール、使えるように指定
-
-```zsh
-nodebrew install stable
-nodebrew use stable
-```
-
-node.js が使える状態ということを確認しておく
-
-```zsh
-node --version
-```
-
-#### yarn
-
-- yarn - <https://yarnpkg.com/>
-  - 公式サイトの手順に従い yarn を準備
-
-下記は node.js インストール後の Mac での具体的な手順
-
-```zsh
-npm install -g yarn
-```
 
 #### nuxt
 
