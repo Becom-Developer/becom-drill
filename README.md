@@ -43,25 +43,13 @@ git branch -d dev#5
 
 ```zsh
 git fetch && git checkout main && git pull
-git checkout dist
-git merge -m 'main merge' origin/main
-yarn generate
-git add .
-git commit -m 'generate'
-git push origin dist
+npm run generate
 ```
 
-公開環境へログイン
+公開環境へ `scp` コマンドで送信
 
 ```zsh
-ssh becom@becom.sakura.ne.jp
-```
-
-公開環境のさくらレンタルサーバーにて
-
-```csh
-cd ~/www/becom-drill
-git fetch && git checkout dist && git pull origin dist
+scp -r ~/github/becom-drill/dist becom@becom.sakura.ne.jp:~/www/becom-drill
 ```
 
 アプリケーション起動方法
