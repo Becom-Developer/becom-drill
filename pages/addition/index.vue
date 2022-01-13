@@ -4,7 +4,7 @@
       <h1>たしざん</h1>
       <h2>ドリルのじゅんび</h2>
       <p>じぶんのなまえをとうろくしてみよう!</p>
-      <p>へんこうするボタンをおすとなまえがえらべるよ</p>
+      <p>ちょうせんしゃのなまえがえらべるよ</p>
       <my-name />
     </b-container>
     <b-container class="bg-light mt-3">
@@ -22,7 +22,7 @@
             >はやおしドリル</b-btn
           ></b-col
         > -->
-        <b-col lg="6" class="pb-2"
+        <b-col class="pb-2"
           ><b-btn
             block
             pill
@@ -34,7 +34,7 @@
         >
       </b-row>
       <b-row>
-        <b-col lg="12" class="pb-2"
+        <b-col class="pb-2"
           ><b-btn
             block
             pill

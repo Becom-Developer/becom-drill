@@ -6,7 +6,7 @@
     <!-- <p>4つのドリルがえらべるよ</p> -->
     <p>やってみたいドリルをクリック</p>
     <b-row>
-      <b-col lg="3" class="pb-2"
+      <b-col class="pb-2"
         ><b-btn
           block
           pill
