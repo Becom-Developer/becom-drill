@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info" class="sticky-top">
-      <b-navbar-brand @click="$router.push('/')">ドリルマスター</b-navbar-brand>
+      <b-navbar-brand style="cursor: pointer" @click="$router.push('/')"
+        >ドリルマスター</b-navbar-brand
+      >
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
