@@ -2,72 +2,59 @@
 
 計算ドリルで楽しく遊ぶ
 
+## Setup
+
+事前に`nvm`を使えるようにしておき指定バージョンの`node.js`を使えるように
+
+git clone にてソースコードを配置後プロジェクト配下にて指定のモジュールをインストール
+
+```zsh
+npm install
+```
+
 ## Work
 
-becom-drill での開発作業の手順
-
-github でイシューを作成
-
-イシューのナンバーを使いプルリクエストを作成
-
-```zsh
-# (例: イシューのタイトルが 「認証機能 #5」 の場合)
-git fetch origin
-git checkout -b dev#5 origin/main
-git commit -m 'pullreq commit' --allow-empty
-git push origin dev#5
-```
-
-作業終了後 github へ反映
-
-```zsh
-# (例: ブランチが dev#5 の場合)
-git add .
-git commit -m 'update'
-git push origin dev#5
-```
-
-github のプルリク機能側で main ブランチにマージ
-
-不要になったローカルのブランチは削除
-
-```zsh
-# (例: ブランチが dev#5 の場合)
-git fetch && git checkout main && git pull
-git branch -d dev#5
-```
-
-公開環境へ反映する場合
-
-ローカル環境で dist 内に static なファイルを生成
-
-```zsh
-git fetch && git checkout main && git pull
-npm run generate
-```
-
-公開環境へ `scp` コマンドで送信
-
-```zsh
-scp -r ~/github/becom-drill/dist becom@becom.sakura.ne.jp:~/www/becom-drill
-```
-
-アプリケーション起動方法
+ローカル開発時の起動方法など
 
 ```zsh
 npm run dev
 ```
 
-## Setup
+リクエスト
 
-開発環境は Mac もくは Linux(Ubuntu)
+```zsh
+open 'http://localhost:3000/'
+```
 
-### Middleware
+公開環境へデプロイ
 
-#### node
+```zsh
+npm run generate
+scp -r ~/github/becom-drill/dist/ becom2022@becom2022.sakura.ne.jp:~/www/becom-drill/
+```
 
-- node.js - <https://nodejs.org/ja/>
-  - 安定版(LTS)の最新のものを使うようにする
+### HTTP
+
+```text
+https://drill.becom.co.jp/
+```
+
+## Memo
+
+### Environment
+
+初動時の環境構築に関するメモ
+
+公開環境
+
+```sh
+npm run generate
+# 初回のみ公開環境でディレクトを作成しておく
+ssh becom2022@becom2022.sakura.ne.jp
+mkdir ~/www/becom-drill
+# 公開環境へ `scp` コマンドで送信
+scp -r ~/github/becom-drill/dist/ becom2022@becom2022.sakura.ne.jp:~/www/becom-drill/
+```
 
 #### nuxt
 
@@ -153,7 +140,6 @@ More information about the usage of this directory in [the documentation](https:
 Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
 
 ### `pages`
 
