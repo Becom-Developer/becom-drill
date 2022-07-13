@@ -36,7 +36,7 @@ scp -r ~/github/becom-drill/dist/ becom2022@becom2022.sakura.ne.jp:~/www/becom-d
 ### HTTP
 
 ```text
-https://becom-drill.becom.co.jp/
+https://drill.becom.co.jp/
 ```
 
 ## Memo
